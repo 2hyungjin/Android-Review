@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.example.sampleapp.model.entity.User" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        app:layoutDescription="@xml/user_rv_item_xml_constraintlayout_scene">
+
+        <ImageView
+            android:id="@+id/img_user_rv_item"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_id_user_rv_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.id}"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/img_user_rv_item"
+            app:layout_constraintStart_toEndOf="@+id/img_user_rv_item"
+            app:layout_constraintTop_toTopOf="@+id/img_user_rv_item"
+            tools:text="아이디" />
+
+        <TextView
+            android:id="@+id/tv_follower_user_rv_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/follower(user.follower)}"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/follower" />
+
+        <TextView
+            android:id="@+id/tv_following_user_rv_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/following(user.following)}"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/following" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>
