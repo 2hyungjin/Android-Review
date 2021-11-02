@@ -7,6 +7,8 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.sampleapp.R
 import com.example.sampleapp.databinding.UserRvItemBinding
 import com.example.sampleapp.model.entity.User
@@ -22,6 +24,10 @@ class UserListAdapter(val clickListener: OnItemClickListener) :
                 clickListener.onClick(item)
             }
             binding.user = item
+            binding.imgUserRvItem.load(item.avatar) {
+                crossfade(true)
+                transformations(CircleCropTransformation())
+            }
         }
     }
 
