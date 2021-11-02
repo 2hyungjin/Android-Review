@@ -8,14 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.sampleapp.ui.fragment.MainFragment"
-        android:label="MainFragment" >
-        <action
-            android:id="@+id/action_mainFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+        android:label="MainFragment">
+
     </fragment>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.sampleapp.ui.fragment.LoginFragment"
-        android:label="login_fragment"
-        tools:layout="@layout/login_fragment" />
 </navigation>

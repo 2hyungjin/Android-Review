@@ -4,6 +4,7 @@ import com.example.sampleapp.model.entity.User
 import com.example.sampleapp.network.api.UserService
 import com.example.sampleapp.network.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

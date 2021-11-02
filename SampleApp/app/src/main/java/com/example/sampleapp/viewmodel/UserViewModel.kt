@@ -39,7 +39,7 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
             _usersUiState.postValue(DataState.Loading)
             userRepository.getUsers()
                 .catch {
-                    _usersUiState.postValue(DataState.Failure(""))
+                    _usersUiState.postValue(DataState.Failure("aaa"))
                 }
                 .collect {
                     _usersUiState.postValue(DataState.Success(it))
