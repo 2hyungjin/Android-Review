@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"
-        app:layoutDescription="@xml/user_rv_item_xml_constraintlayout_scene">
+        app:layoutDescription="@xml/user_rv_item_scene">
 
         <ImageView
             android:id="@+id/img_user_rv_item"

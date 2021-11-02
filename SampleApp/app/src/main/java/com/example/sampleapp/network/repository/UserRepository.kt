@@ -1,11 +1,10 @@
 package com.example.sampleapp.network.repository
 
-import com.example.sampleapp.model.response.UserResponse
-import retrofit2.Response
-import javax.inject.Inject
+import com.example.sampleapp.model.entity.User
+import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
-    suspend fun getUser(id: String): Response<UserResponse>
-    suspend fun getUsers(): Response<List<UserResponse>>
+    suspend fun getUser(id: String): Flow<User>
+    suspend fun getUsers(): Flow<List<User>>
 //    suspend fun getUsersFromRoom(): List<UserResponse>
 }

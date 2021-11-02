@@ -3,6 +3,8 @@ package com.example.sampleapp.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -20,23 +22,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        super.setContentView(binding.root)
         initNavigation()
     }
 
     private fun initNavigation() {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        navController = navHostFragment.navController
-        val appBarConfig = AppBarConfiguration(
-            topLevelDestinationIds = setOf(R.id.mainFragment)
-        )
-        binding.toolbar.setupWithNavController(navController, appBarConfig)
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            if (destination.id == R.id.mainFragment) {
-                binding.toolbar.visibility = View.GONE
-            }
-        }
+        navController = findNavController(R.id.fragmentContainerView)
+//        val appBarConfig = AppBarConfiguration(
+//            topLevelDestinationIds = setOf(R.id.mainFragment),
+//        )
+//        binding.toolbar.setupWithNavController(navController, appBarConfig)
+//
+//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+//            if (destination.id == R.id.mainFragment) {
+//                binding.toolbar.visibility = View.GONE
+//            }
+//        }
     }
 
 }

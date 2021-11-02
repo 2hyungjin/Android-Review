@@ -1,45 +1,50 @@
 package com.example.sampleapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sampleapp.model.entity.User
+import com.example.sampleapp.model.entity.DataState
 import com.example.sampleapp.network.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class UserViewModel @Inject constructor(private val userRepository: UserRepository) :
-    BaseViewModel() {
+    ViewModel() {
 
-    private var _users = listOf<User>()
-        set(value) = users.postValue(value)
-
-    val users = MutableLiveData<List<User>>()
-
+    private var _usersUiState = MutableLiveData<DataState<List<User>>>()
+    val usersUiState: LiveData<DataState<List<User>>> = _usersUiState
 
 
     fun getUser(id: String) {
-        job = viewModelScope.launch {
-            val result = userRepository.getUser(id)
-            if (result.isSuccessful) {
-                val user = result.body()?.toEntity()
-                _users = listOf(user!!)
-                isLoading.postValue(false)
-            } else {
-                throw Exception("해당하는 유저를 찾지 못했습니다.")
-            }
+        viewModelScope.launch {
+            _usersUiState.postValue(DataState.Loading)
+            userRepository.getUser(id)
+                .catch {
+                    _usersUiState.postValue(DataState.Failure(""))
+                }
+                .collect {
+                    _usersUiState.postValue(DataState.Success(listOf(it)))
+                }
         }
     }
 
     fun getUsers() {
-        job = viewModelScope.launch {
-            val result = userRepository.getUsers()
-            if (result.isSuccessful) {
-                val users = result.body()?.map { it.toEntity() }
-                _users = users!!
-                isLoading.postValue(false)
-            } else {
-                throw Exception("사용자를 불러오지 못했습니다.")
-            }
+        viewModelScope.launch {
+            _usersUiState.postValue(DataState.Loading)
+            userRepository.getUsers()
+                .catch {
+                    _usersUiState.postValue(DataState.Failure(""))
+                }
+                .collect {
+                    _usersUiState.postValue(DataState.Success(it))
+                }
+
         }
     }
 

@@ -7,8 +7,8 @@ import retrofit2.http.Path
 
 interface UserService {
     @GET("{id}")
-    suspend fun getUser(@Path("id") id: String): Response<UserResponse>
+    suspend fun getUser(@Path("id") id: String): UserResponse
 
     @GET("")
-    suspend fun getUsers(): Response<List<UserResponse>>
+    suspend fun getUsers(): List<UserResponse>
 }

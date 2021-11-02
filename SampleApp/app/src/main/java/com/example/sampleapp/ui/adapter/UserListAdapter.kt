@@ -3,15 +3,32 @@ package com.example.sampleapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sampleapp.R
 import com.example.sampleapp.databinding.UserRvItemBinding
 import com.example.sampleapp.model.entity.User
+import com.example.sampleapp.ui.adapter.viewholder.BaseViewHolder
 
-class UserListAdapter : ListAdapter<User, UserListAdapter.ViewHolder>(UserDiffUtil()) {
-    inner class ViewHolder(val binding: UserRvItemBinding) : RecyclerView.ViewHolder(binding.root)
+class UserListAdapter(val clickListener: OnItemClickListener) :
+    ListAdapter<User, UserListAdapter.ViewHolder>(UserDiffUtil()) {
+
+    inner class ViewHolder(private val binding: UserRvItemBinding) :
+        BaseViewHolder<User>(binding.root) {
+        override fun bind(item: User) {
+            binding.root.setOnClickListener {
+                clickListener.onClick(item)
+            }
+            binding.user = item
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onClick(user: User)
+        fun onLongClick(user: User)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -20,7 +37,7 @@ class UserListAdapter : ListAdapter<User, UserListAdapter.ViewHolder>(UserDiffUt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.user = getItem(position)
+        holder.bind(getItem(position))
     }
 }
 
