@@ -1,5 +1,6 @@
 package com.example.sampleapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,32 +18,33 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(private val userRepository: UserRepository) :
     ViewModel() {
 
-    private var _usersUiState = MutableLiveData<DataState<List<User>>>()
-    val usersUiState: LiveData<DataState<List<User>>> = _usersUiState
+    private val _usersDataState = MutableLiveData<DataState<List<User>>>()
+
+    val usersDataState: LiveData<DataState<List<User>>> = _usersDataState
 
 
     fun getUser(id: String) {
         viewModelScope.launch {
-            _usersUiState.postValue(DataState.Loading)
+            _usersDataState.postValue(DataState.Loading)
             userRepository.getUser(id)
                 .catch {
-                    _usersUiState.postValue(DataState.Failure(""))
+                    _usersDataState.postValue(DataState.Failure("user is not found"))
                 }
                 .collect {
-                    _usersUiState.postValue(DataState.Success(listOf(it)))
+                    _usersDataState.postValue(DataState.Success(listOf(it)))
                 }
         }
     }
 
     fun getUsers() {
         viewModelScope.launch {
-            _usersUiState.postValue(DataState.Loading)
+            _usersDataState.postValue(DataState.Loading)
             userRepository.getUsers()
                 .catch {
-                    _usersUiState.postValue(DataState.Failure("aaa"))
+                    _usersDataState.postValue(DataState.Failure("aaa"))
                 }
                 .collect {
-                    _usersUiState.postValue(DataState.Success(it))
+                    _usersDataState.postValue(DataState.Success(it))
                 }
 
         }

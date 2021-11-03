@@ -1,5 +1,6 @@
 package com.example.sampleapp.network.repository.impl
 
+import android.util.Log
 import com.example.sampleapp.model.entity.User
 import com.example.sampleapp.network.api.UserService
 import com.example.sampleapp.network.repository.UserRepository
@@ -10,9 +11,11 @@ import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(private val userService: UserService) :
     UserRepository {
+
     override suspend fun getUser(id: String): Flow<User> =
         flow {
             val user = userService.getUser(id).toEntity()
+            Log.d("repository", user.toString())
             emit(user)
         }.flowOn(Dispatchers.IO)
 
@@ -20,5 +23,6 @@ class UserRepositoryImpl @Inject constructor(private val userService: UserServic
         flow {
             val users = userService.getUsers().map { it.toEntity() }
             emit(users)
-        }
+        }.flowOn(Dispatchers.IO)
+
 }

@@ -1,21 +1,18 @@
 package com.example.sampleapp.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.example.sampleapp.R
 import com.example.sampleapp.databinding.UserRvItemBinding
 import com.example.sampleapp.model.entity.User
-import com.example.sampleapp.ui.adapter.viewholder.BaseViewHolder
+import com.example.sampleapp.ui.adapter.core.BaseViewHolder
+import com.example.sampleapp.ui.adapter.core.OnItemClickListener
 
-class UserListAdapter(val clickListener: OnItemClickListener) :
-    ListAdapter<User, UserListAdapter.ViewHolder>(UserDiffUtil()) {
+class UserListAdapter(val clickListener: OnItemClickListener<User>) :
+    ListAdapter<User, BaseViewHolder<User>>(UserDiffUtil()) {
 
     inner class ViewHolder(private val binding: UserRvItemBinding) :
         BaseViewHolder<User>(binding.root) {
@@ -29,20 +26,16 @@ class UserListAdapter(val clickListener: OnItemClickListener) :
                 transformations(CircleCropTransformation())
             }
         }
+
     }
 
-    interface OnItemClickListener {
-        fun onClick(user: User)
-        fun onLongClick(user: User)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<User> {
         return ViewHolder(
             UserRvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<User>, position: Int) {
         holder.bind(getItem(position))
     }
 }

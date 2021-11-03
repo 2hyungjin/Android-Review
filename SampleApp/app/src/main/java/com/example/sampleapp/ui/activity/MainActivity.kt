@@ -27,18 +27,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         super.setContentView(binding.root)
+
         initNavigation()
-        binding.svMainActivity.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+
+        binding.svMainActivity.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query.isNullOrBlank()) return false
-                userViewModel.getUser(query)
+                if (query.isNullOrBlank()) userViewModel.getUsers()
+                else userViewModel.getUser(query)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+
                 return true
             }
-
         })
     }
 
