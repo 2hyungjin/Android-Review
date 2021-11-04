@@ -50,13 +50,10 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
         }
     }
 
-//    fun getUsersFromRoom() {
-//        job = viewModelScope.launch {
-//            val result=userRepository.getUsersFromRoom()
-//            when(result){
-//                is BaseResponse.Success<>
-//            }
-//        }
-//    }
+    fun addUser(user: User) {
+        viewModelScope.launch {
+            userRepository.addMyUser(user)
+        }
+    }
 
 }

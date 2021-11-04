@@ -64,7 +64,8 @@ class MainFragment : Fragment(), ItemClickListener<User> {
     }
 
     override fun onClick(item: User) {
-        Toast.makeText(requireContext(), item.id.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
+        userViewModel.addUser(item)
     }
 
     override fun onLongClick(item: User) {

@@ -43,6 +43,10 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+        binding.appCompatButton.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_myUserFragment)
+        }
+
     }
 
     private fun initNavigation() {
@@ -53,9 +57,11 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.setupWithNavController(navController, appBarConfig)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-//            if (destination.id == R.id.mainFragment) {
-//                binding.toolbar.visibility = View.GONE
-//            }
+            if (destination.id == R.id.myUserFragment) {
+                binding.svMainActivity.visibility = View.GONE
+            } else {
+                binding.svMainActivity.visibility = View.VISIBLE
+            }
         }
     }
 
