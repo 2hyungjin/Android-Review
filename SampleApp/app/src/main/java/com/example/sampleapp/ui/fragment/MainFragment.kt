@@ -13,12 +13,12 @@ import com.example.sampleapp.databinding.MainFragmentBinding
 import com.example.sampleapp.model.entity.DataState
 import com.example.sampleapp.model.entity.User
 import com.example.sampleapp.ui.adapter.UserListAdapter
-import com.example.sampleapp.ui.adapter.core.OnItemClickListener
+import com.example.sampleapp.ui.adapter.core.ItemClickListener
 import com.example.sampleapp.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : Fragment(), OnItemClickListener<User> {
+class MainFragment : Fragment(), ItemClickListener<User> {
     private val userViewModel: UserViewModel by activityViewModels()
     lateinit var binding: MainFragmentBinding
     lateinit var listAdapter: UserListAdapter

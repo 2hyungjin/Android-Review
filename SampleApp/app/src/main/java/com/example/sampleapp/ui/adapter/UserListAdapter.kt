@@ -9,9 +9,9 @@ import coil.transform.CircleCropTransformation
 import com.example.sampleapp.databinding.UserRvItemBinding
 import com.example.sampleapp.model.entity.User
 import com.example.sampleapp.ui.adapter.core.BaseViewHolder
-import com.example.sampleapp.ui.adapter.core.OnItemClickListener
+import com.example.sampleapp.ui.adapter.core.ItemClickListener
 
-class UserListAdapter(val clickListener: OnItemClickListener<User>) :
+class UserListAdapter(val clickListener: ItemClickListener<User>) :
     ListAdapter<User, BaseViewHolder<User>>(UserDiffUtil()) {
 
     inner class ViewHolder(private val binding: UserRvItemBinding) :
@@ -26,7 +26,6 @@ class UserListAdapter(val clickListener: OnItemClickListener<User>) :
                 transformations(CircleCropTransformation())
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<User> {
